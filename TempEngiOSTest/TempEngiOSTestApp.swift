@@ -13,7 +13,7 @@ import SwiftUI
 struct TempEngiOSTestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
         }
     }
 }

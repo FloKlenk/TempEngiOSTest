@@ -4,6 +4,16 @@
 //
 //  Created by Florian Klenk
 //
+//  Aktuell eine variable Auswertung der Daten mit einem gespeicherten Graphen.
+//  Es werden die nötigen Variablen in einem Struct (TestStruct) gespeichert und anschließend kann direkt darauf zugegriffen werden und der Graph angezeigt werden.
+//
+//  Funktionsweise:
+//  Man erstellt eine neue Auswertung (Template), gibt Namen und Notiz ein, wählt anschließend einen Datensatz und eine Operation die darauf angewendet werden soll.
+//  Dann kann das Template gespeichert und auf der Startseite der Graph direkt angezeigt werden.
+//  Es können zu einer Auswertung beliebig viele Operationen zu beliebig vielen Datensätzen hinzugefügt werden, welche dann von der Startseite aus besser angezeigt werden können.
+//
+
+
 
 // Importieren der erforderlichen SwiftUI- und Charts-Bibliotheken
 import SwiftUI
@@ -273,9 +283,10 @@ struct GraphViewStruct: View {
             Text(teststruct.notiz)
                 .font(.title2)
             ScrollView {
+                Chart{
                 ForEach(0..<teststruct.datensatz.count, id: \.self) { columnIndex in
                     let column = teststruct.datensatz[columnIndex]
-                    Chart {
+//                    Chart {
                         ForEach(0..<column.count, id: \.self) { rowIndex in
                             let value = column[rowIndex]
                             LineMark(
@@ -284,8 +295,9 @@ struct GraphViewStruct: View {
                             )
                         }
                     }
-                    .frame(height: 600)
+//                    .frame(height: 600)
                 }
+                .frame(height: 600)
             }
         }
     }

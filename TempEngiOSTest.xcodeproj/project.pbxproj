@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5CB663E02AC6E99C00337425 /* ErstDatenDannTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB663DF2AC6E99C00337425 /* ErstDatenDannTemplate.swift */; };
-		5CBFE08D2AC19B1300037E68 /* TestDatenOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBFE08C2AC19B1300037E68 /* TestDatenOperation.swift */; };
+		5CB663E22AD74E7C00337425 /* TemEngTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB663E12AD74E7C00337425 /* TemEngTest.swift */; };
 		5CCAE2AF2AB1A0EA00B9CCAA /* EinzelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE2AE2AB1A0EA00B9CCAA /* EinzelTests.swift */; };
 		5CCEDCC02AA8D06F00151079 /* TempEngiOSTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCEDCBF2AA8D06F00151079 /* TempEngiOSTestApp.swift */; };
 		5CCEDCC22AA8D06F00151079 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCEDCC12AA8D06F00151079 /* ContentView.swift */; };
@@ -17,8 +16,6 @@
 		5CCEDCD12AA8D07200151079 /* TempEngiOSTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCEDCD02AA8D07200151079 /* TempEngiOSTestTests.swift */; };
 		5CCEDCDB2AA8D07200151079 /* TempEngiOSTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCEDCDA2AA8D07200151079 /* TempEngiOSTestUITests.swift */; };
 		5CCEDCDD2AA8D07200151079 /* TempEngiOSTestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCEDCDC2AA8D07200151079 /* TempEngiOSTestUITestsLaunchTests.swift */; };
-		5CDFBBDC2AAB1B6000D7F9B8 /* AlterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFBBDB2AAB1B6000D7F9B8 /* AlterTest.swift */; };
-		5CEE05BA2AAF5A9500B9A8A2 /* AllesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE05B92AAF5A9500B9A8A2 /* AllesTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5CB663DF2AC6E99C00337425 /* ErstDatenDannTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErstDatenDannTemplate.swift; sourceTree = "<group>"; };
-		5CBFE08C2AC19B1300037E68 /* TestDatenOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatenOperation.swift; sourceTree = "<group>"; };
+		5CB663E12AD74E7C00337425 /* TemEngTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemEngTest.swift; sourceTree = "<group>"; };
 		5CCAE2AE2AB1A0EA00B9CCAA /* EinzelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EinzelTests.swift; sourceTree = "<group>"; };
 		5CCEDCBC2AA8D06F00151079 /* TempEngiOSTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempEngiOSTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CCEDCBF2AA8D06F00151079 /* TempEngiOSTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempEngiOSTestApp.swift; sourceTree = "<group>"; };
@@ -52,8 +48,6 @@
 		5CCEDCD62AA8D07200151079 /* TempEngiOSTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempEngiOSTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CCEDCDA2AA8D07200151079 /* TempEngiOSTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempEngiOSTestUITests.swift; sourceTree = "<group>"; };
 		5CCEDCDC2AA8D07200151079 /* TempEngiOSTestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempEngiOSTestUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5CDFBBDB2AAB1B6000D7F9B8 /* AlterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterTest.swift; sourceTree = "<group>"; };
-		5CEE05B92AAF5A9500B9A8A2 /* AllesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllesTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,11 +100,8 @@
 			children = (
 				5CCEDCBF2AA8D06F00151079 /* TempEngiOSTestApp.swift */,
 				5CCEDCC12AA8D06F00151079 /* ContentView.swift */,
-				5CBFE08C2AC19B1300037E68 /* TestDatenOperation.swift */,
-				5CDFBBDB2AAB1B6000D7F9B8 /* AlterTest.swift */,
-				5CEE05B92AAF5A9500B9A8A2 /* AllesTest.swift */,
 				5CCAE2AE2AB1A0EA00B9CCAA /* EinzelTests.swift */,
-				5CB663DF2AC6E99C00337425 /* ErstDatenDannTemplate.swift */,
+				5CB663E12AD74E7C00337425 /* TemEngTest.swift */,
 				5CCEDCC32AA8D07100151079 /* Assets.xcassets */,
 				5CCEDCC52AA8D07100151079 /* Preview Content */,
 			);
@@ -273,11 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CCEDCC22AA8D06F00151079 /* ContentView.swift in Sources */,
-				5CB663E02AC6E99C00337425 /* ErstDatenDannTemplate.swift in Sources */,
 				5CCEDCC02AA8D06F00151079 /* TempEngiOSTestApp.swift in Sources */,
-				5CDFBBDC2AAB1B6000D7F9B8 /* AlterTest.swift in Sources */,
-				5CEE05BA2AAF5A9500B9A8A2 /* AllesTest.swift in Sources */,
-				5CBFE08D2AC19B1300037E68 /* TestDatenOperation.swift in Sources */,
+				5CB663E22AD74E7C00337425 /* TemEngTest.swift in Sources */,
 				5CCAE2AF2AB1A0EA00B9CCAA /* EinzelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
