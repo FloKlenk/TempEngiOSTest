@@ -116,7 +116,7 @@ struct NameSelectionView: View {
                 Button("Template hinzufügen") {
                     names.append(name)
                     name = ""
-                    isNameSelectionPresented = false
+//                    isNameSelectionPresented = false
                     notes.append(note)
                     note = ""
                 }
@@ -124,7 +124,7 @@ struct NameSelectionView: View {
                 // Liste der hinzugefügten Namen mit NavigationLink
                 List(names, id: \.self) { name in
                     NavigationLink(
-                        destination: DataSelectionView(selectedName: name, selectedNote: note, Daten: AlleDaten, DatenNamen: DatenNamen, OperationsNamen: OperationsNamen, viewModel: viewModel)
+                        destination: DataSelectionView(selectedName: name, selectedNote: notes[names.firstIndex(of: name) ?? 0], Daten: AlleDaten, DatenNamen: DatenNamen, OperationsNamen: OperationsNamen, viewModel: viewModel)
                     ) {
                         Text(name)
                     }

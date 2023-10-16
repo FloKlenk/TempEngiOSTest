@@ -1,112 +1,311 @@
 ////
-////  TemEngTest.swift
+////  EinzelTests.swift
 ////  TempEngiOSTest
 ////
 ////  Created by Florian Klenk
 ////
+////  Aktuell eine variable Auswertung der Daten mit einem gespeicherten Graphen.
+////  Es werden die nötigen Variablen in einem Struct (TestStruct) gespeichert und anschließend kann direkt darauf zugegriffen werden und der Graph angezeigt werden.
+////
+////  Funktionsweise:
+////  Man erstellt eine neue Auswertung (Template), gibt Namen und Notiz ein, wählt anschließend einen Datensatz und eine Operation die darauf angewendet werden soll.
+////  Dann kann das Template gespeichert und auf der Startseite der Graph direkt angezeigt werden.
+////  Es können zu einer Auswertung beliebig viele Operationen zu beliebig vielen Datensätzen hinzugefügt werden, welche dann von der Startseite aus besser angezeigt werden können.
+////
 //
+//
+//
+//// Importieren der erforderlichen SwiftUI- und Charts-Bibliotheken
 //import SwiftUI
+//import Charts
 //
-//// Datenmodelle
-//struct Template {
-//    var name: String
-//    var operations: [Operation]
-//}
-//
-//struct Operation {
-//    var type: String
-//    var parameters: [String: Any]
-//}
-//
-//struct PlaceholderData {
-//    var name: String
-//    var value: Any
-//}
-//
+//// View 1: Die Hauptansicht
 //struct TemEngTest: View {
-//        @State private var selectedTemplate: Template?
-//        @State private var inputData: [PlaceholderData] = [
-//            PlaceholderData(name: "SensorA", value: 100),
-//            PlaceholderData(name: "SensorB", value: 205)
-//        ]
-//        @State private var resultData: [Int] = [] // Verwende Int als Identifikation
+//    // ViewModel, um Daten zu verwalten
+//    @ObservedObject var viewModel = DataViewModel()
 //
-//        var body: some View {
+//    // Zustandsvariablen für UI-Interaktionen
+//    @State private var names: [String] = []
+//    @State private var notes: [String] = []
+//    @State private var selectedNameStruct: TestStruct?
+//    @State private var isNameSelectionPresented = false
+//
+//    // Daten für verschiedene Sensoren
+//    @State private var sensor1_x = [27, 23, 9, 19, 24]
+//    @State private var sensor1_y = [45, 22, 5, 12, 43]
+//    @State private var sensor1_z = [32, 1, 41, 17, 48]
+//    @State private var sensor2_x = [19, 11, 17, 8, 40]
+//    @State private var sensor2_y = [14, 16, 19, 49, 42]
+//    @State private var sensor2_z = [46, 11, 16, 42, 47]
+//
+//    // Daten und Operationen für Sensoren
+//    @State public var NamenDatensaetze = ["sensor1_x", "sensor1_y", "sensor1_z", "sensor2_x", "sensor2_y", "sensor2_z"]
+//    @State public var NamenOperationen = ["Original", "Mal 2", "Halbieren", "Integrieren"]
+//    @State public var AlleDatensaetze = [
+//        [27.0, 23.0, 9.0, 19.0, 24.0],
+//        [45.0, 22.0, 5.0, 12.0, 43.0],
+//        [32.0, 1.0, 41.0, 17.0, 48.0],
+//        [19.0, 11.0, 17.0, 8.0, 40.0],
+//        [14.0, 16.0, 19.0, 49.0, 42.0],
+//        [46.0, 11.0, 16.0, 42.0, 47.0]
+//    ]
+//
+//    var body: some View {
+//        NavigationView {
 //            VStack {
-//                Text("Select a Template:")
-//                
-//                Button("Template 1") {
-//                    selectedTemplate = Template(name: "Template 1", operations: [
-//                        Operation(type: "Berechnung", parameters: ["factor": 223]),
-//                        Operation(type: "Filter", parameters: ["threshold": 1523])
-//                    ])
-//                    applyTemplate()
-//                }
-//                
-//                Button("Template 2") {
-//                    selectedTemplate = Template(name: "Template 2", operations: [
-//                        Operation(type: "Filter", parameters: ["threshold": 102212])
-//                    ])
-//                    applyTemplate()
-//                }
-//                
-//                Spacer()
-//                
-//                if !resultData.isEmpty {
-//                    Text("Results:")
-//                    List(resultData, id: \.self) { itemID in
-//                        // Hier kannst du die Elemente basierend auf itemID darstellen.
-//                        // Du kannst auf die originalen Ergebnisse anhand der itemID zugreifen.
-//                        Text("\(resultData[itemID])")
+//                // Anzeige für den ausgewählten Graphen (wird später aktualisiert)
+//                Text("Hier wird es angezeigt, wenn der Graph mit Daten gespeichert ist!")
+//
+//                // Liste der Datenstrukturen
+//                List(viewModel.dataStructs) { dataStruct in
+//                    Button(action: {
+//                        selectedNameStruct = dataStruct // Das ausgewählte TestStruct zuweisen
+//                    }) {
+//                        Text(dataStruct.name)
 //                    }
 //                }
-//            }
-//        }
-//        
-//        func applyTemplate() {
-//            if let template = selectedTemplate {
-//                // Apply the template to input data
-//                let result = applyTemplate(template: template, toData: inputData)
-//                resultData = Array(result.indices)
-//                
-//                // Display the results or navigate to a results view.
-//            }
-//        }
-//        
-//        func applyTemplate(template: Template, toData data: [PlaceholderData]) -> [Any] {
-//            var resultData: [Any] = []
-//            
-//            for operation in template.operations {
-//                if operation.type == "Berechnung" {
-//                    if let factor = operation.parameters["factor"] as? Int {
-//                        resultData = data.map { item in
-//                            if item.name == "SensorA" {
-//                                return (item.value as! Int) * factor
-//                            }
-//                            return item.value
-//                        }
-//                    }
-//                } else if operation.type == "Filter" {
-//                    if let threshold = operation.parameters["threshold"] as? Int {
-//                        resultData = data.filter { item in
-//                            if item.name == "SensorA" {
-//                                return (item.value as! Int) > threshold
-//                            }
-//                            return true
-//                        }.map { item in item.value }
-//                    }
+//                .sheet(item: $selectedNameStruct) { selectedStruct in
+//                    GraphViewStruct(teststruct: selectedStruct)
 //                }
-//                // Weitere Operationen hinzufügen, je nach Bedarf.
+//
+//                // Anzeige der Namen (keine Interaktion)
+//                Text("Nur Namen zur Kontrolle, wenn das struct angelegt wurde, keine Interaktion")
+//                List(names, id: \.self) { name in
+//                    Text(name)
+//                }
+//
+//                // Button, um Namen hinzuzufügen und zu bearbeiten
+//                Button("Hinzufügen und bearbeiten") {
+////                    print("selectedName oder AusgewählteDaten ist leer oder ungültig")
+//                    isNameSelectionPresented = true
+//                }
 //            }
-//            
-//            return resultData
+//            .navigationTitle("Übersicht")
+//            .sheet(isPresented: $isNameSelectionPresented) {
+//                NameSelectionView(names: $names, notes: $notes, isNameSelectionPresented: $isNameSelectionPresented, DatenNamen: NamenDatensaetze, OperationsNamen: NamenOperationen, viewModel: viewModel)
+//            }
 //        }
 //    }
+//}
+//
+//// View 2: Name auswählen und hinzufügen
+//struct NameSelectionView: View {
+//    @Binding var names: [String]
+//    @Binding var notes: [String]
+//    @Binding var isNameSelectionPresented: Bool
+//    @State private var name = ""
+//    @State private var note = ""
+//    var DatenNamen: [String]
+//    var OperationsNamen: [String]
+//    @ObservedObject var viewModel: DataViewModel
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                // Eingabefeld für den Namen
+//                TextField("Name eingeben", text: $name)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                    .padding()
+//
+//                // Eingabefeld für die Notiz
+//                TextField("Notiz eingeben", text: $note)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                    .padding()
+//
+//                // Button, um ein Template hinzuzufügen
+//                Button("Template hinzufügen") {
+//                    names.append(name)
+//                    name = ""
+//                    isNameSelectionPresented = false
+//                    notes.append(note)
+//                    note = ""
+//                }
+//
+//                // Liste der hinzugefügten Namen mit NavigationLink
+//                List(names, id: \.self) { name in
+//                    NavigationLink(
+//                        destination: DataSelectionView(selectedName: name, selectedNote: notes[names.firstIndex(of: name) ?? 0], DatenNamen: DatenNamen, OperationsNamen: OperationsNamen, viewModel: viewModel)
+//                    ) {
+//                        Text(name)
+//                    }
+//                }
+//            }
+//            .navigationTitle("Namen auswählen")
+//        }
+//    }
+//}
+//
+//// View 3: Sensordaten auswählen
+//struct DataSelectionView: View {
+//    var selectedName: String
+//    var selectedNote: String
+//    @State private var selectedDataOption = 0
+//    var DatenNamen: [String]
+//    var OperationsNamen: [String]
+//    @ObservedObject var viewModel: DataViewModel
+//
+//    var body: some View {
+//        VStack {
+//            Text("Name: " + selectedName)
+//            Text("Notiz: " + selectedNote)
+//            
+//            Text("Auswahl der Sensordaten:")
+//
+//            // Picker zur Auswahl der Sensordaten
+//            Picker("Wählen Sie Daten", selection: $selectedDataOption) {
+//                ForEach(0..<DatenNamen.count, id: \.self) { index in
+//                    Text(DatenNamen[index])
+//                }
+//            }
+//
+//            // Button, um zur Operationsauswahl zu gelangen
+//            NavigationLink(destination: NextView(selectedName: selectedName, selectedNote: selectedNote, AusgewählteDaten: DatenNamen[selectedDataOption], NamenOperationen: OperationsNamen, viewModel: viewModel)) {
+//                Text("Zu der Operationsauswahl")
+//            }
+//        }
+//        .navigationTitle("Sensordaten auswählen für \(selectedName)")
+//    }
+//}
+//
+//struct NextView: View {
+//    let selectedName: String
+//    let selectedNote: String
+//    let AusgewählteDaten: String
+//    let NamenOperationen: [String]
+//
+//    // Zustandsvariablen für UI-Interaktionen
+//    @State private var selectedOperationOption = 0
+//
+//    // Das ViewModel für die Datenverwaltung
+//    @ObservedObject var viewModel: DataViewModel
+//
+//    var body: some View {
+//        VStack {
+//            Text("Ausgewählter Datensatz: " + AusgewählteDaten)
+//
+//            Text("Auswahl der Operation:")
+//
+//            // Picker zur Auswahl der Operation
+//            Picker("Wählen Sie eine Option", selection: $selectedOperationOption) {
+//                ForEach(0..<NamenOperationen.count, id: \.self) { index in
+//                    Text(NamenOperationen[index])
+//                }
+//            }
+//            
+//            // Button zum Ausführen der Operation und Speichern der Ergebnisse
+//            Button("Berechnen und in Struct speichern!") {
+//                if !selectedName.isEmpty && !AusgewählteDaten.isEmpty {
+//                    if let index = viewModel.dataStructs.firstIndex(where: { $0.name == selectedName }) {
+//                        // Wenn das TestStruct bereits existiert, aktualisiere die Arrays
+//                        viewModel.dataStructs[index].OperationenNamen.append(NamenOperationen[selectedOperationOption])
+//                        viewModel.dataStructs[index].DatenreihenNamen.append(AusgewählteDaten)
+//                    } else {
+//                        // Wenn das TestStruct nicht existiert, erstelle ein neues
+//                        var newDataStructure = TestStruct(name: selectedName, notiz: selectedNote)
+//                        newDataStructure.OperationenNamen.append(NamenOperationen[selectedOperationOption])
+//                        newDataStructure.DatenreihenNamen.append(AusgewählteDaten)
+//                        viewModel.dataStructs.append(newDataStructure)
+//                    }
+//                }
+//            }
+//
+//            // Anzeige der Eingabedaten und der Ergebnisdaten
+//            Text("Name: " + selectedName)
+//            Text("Notiz: " + selectedNote)
+//            Text("Gespeicherte Daten: " + AusgewählteDaten)
+//            Text("Gespeicherte Operation: " + NamenOperationen[selectedOperationOption])
+//        }
+//    }
+//}
 //
 //
+//// View 6: Anzeige der Grafik für einen ausgewählten Datensatz in einem TestStruct
+//struct GraphViewStruct: View {
+//    let teststruct: TestStruct
 //
+//    var body: some View {
+//        VStack {
+//            Text(teststruct.name)
+//                .font(.title)
+//            Text(teststruct.notiz)
+//                .font(.title2)
+////            ScrollView {
+////                Chart{
+////                ForEach(0..<teststruct.datensatz.count, id: \.self) { columnIndex in
+////                    let column = teststruct.datensatz[columnIndex]
+//////                    Chart {
+////                        ForEach(0..<column.count, id: \.self) { rowIndex in
+////                            let value = column[rowIndex]
+////                            LineMark(
+////                                x: .value("Index", rowIndex),
+////                                y: .value("Value", value)
+////                            )
+////                        }
+////                    }
+//////                    .frame(height: 600)
+////                }
+////                .frame(height: 600)
+////            }
+//        }
+//    }
+//}
+//
+//// View-Vorschau für die Hauptansicht
 //struct TemEngTest_Previews: PreviewProvider {
 //    static var previews: some View {
 //        TemEngTest()
+//    }
+//}
+//
+//// Funktionen zur Veränderung der Datenreihen
+//func Original(_ data: [Double]) -> [Double] {
+//    return data.map { $0 * 1 }
+//}
+//
+//func multiplyByTwo(_ data: [Double]) -> [Double] {
+//    return data.map { $0 * 2 }
+//}
+//
+//func dividedByTwo(_ data: [Double]) -> [Double] {
+//    return data.map { $0 * 0.5 }
+//}
+//
+//func calculateAverage(_ data: [Double]) -> Double {
+//    let sum = data.reduce(0, +)
+//    return Double(sum) / Double(data.count)
+//}
+//
+//func integrateData(_ data: [Double]) -> [Double] {
+//    var integratedData = [Double]()
+//    var sum = 0.0
+//    for value in data {
+//        sum += value
+//        integratedData.append(sum)
+//    }
+//    return integratedData
+//}
+//
+//// ViewModel für die Verwaltung der Datenstrukturen
+//class DataViewModel: ObservableObject {
+//    @Published var dataStructs = [TestStruct]()
+//}
+//
+//// Das TestStruct, das mit einem leeren Datensatz initialisiert wird
+//struct TestStruct: Identifiable {
+//    var id = UUID()
+//    var name: String
+//    var notiz: String
+//    var DatenreihenNamen: [String]
+//    var OperationenNamen: [String]
+//    
+////    var datensatz: [[Double]]
+//
+//    // Initialisierung mit einem leeren Datensatz-Array
+//    init(name: String, notiz: String) {
+//        self.name = name
+//        self.notiz = notiz
+//        self.DatenreihenNamen = []
+//        self.OperationenNamen = []
+////        self.datensatz = [[]]
 //    }
 //}

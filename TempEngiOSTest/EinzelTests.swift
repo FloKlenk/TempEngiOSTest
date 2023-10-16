@@ -125,12 +125,12 @@
 //                    notes.append(note)
 //                    note = ""
 //                }
-//                
+//
 //                Button("Vorlage erstellen") {
 //                           viewModel.createTemplate(name: name, datasetName: "selectedName", operationName: "selectedOperationName")
 //                           // Restliche Logik zum Hinzufügen des Namens und der Notiz
 //                       }
-//                
+//
 //                // Button zum Hinzufügen von Vorlagen
 ////                Button("Vorlage erstellen") {
 ////                    viewModel.createTemplate(name: name, datasetName: selectedName, operationName: selectedOperationName)
